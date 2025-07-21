@@ -6,9 +6,13 @@ import { getEnvVar } from '../utils/getEnvVar.js';
 const transporter = nodemailer.createTransport({
   host: getEnvVar(SMTP.SMTP_HOST),
   port: Number(getEnvVar(SMTP.SMTP_PORT)),
+  secure: true,
   auth: {
     user: getEnvVar(SMTP.SMTP_USER),
     pass: getEnvVar(SMTP.SMTP_PASSWORD),
+  },
+  tls: {
+    rejectUnauthorized: false, // лише для навчального проєкту, бо саме це викликає 500 помилку при використанні Google. Brevo не працює нормально взагалі.
   },
 });
 
